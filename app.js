@@ -10,7 +10,8 @@
             '朋克型': 'result_7.png',
             '修仙型': 'result_8.png',
             '开摆型': 'result_9.png',
-            '强迫型': 'result_10.png'
+            '强迫型': 'result_10.png',
+            '隐藏人格': 'result_hidden.png'
         },
         productImages: {
             '酸枣仁睡前膏': 'product_suanzao.png',
@@ -22,24 +23,13 @@
             '纤荷茶': 'product_bazhen.png',
             '益椹黄精膏': 'product_shiqquan.png',
             '清润养生茶': 'product_lingzhi.png',
-            '本草茶': 'product_tiao.png'
+            '本草茶': 'product_tiao.png',
+            '方回春堂陈皮玩偶我想开了': 'product_xiaokai.png'
         },
         posterQRImage: 'qr_code.png',
         posterAvatarImage: 'avatar.png',
         tmallUrl: 'https://fhct.tmall.com',
-        douyinUrl: 'https://v.douyin.com/shop/FHCT',
-        /** 按产品名称覆盖购买链接；留空或未写则使用 RESULT_TYPES 里对应 product.url */
-        productBuyUrls: {
-            '酸枣仁助眠膏': '',
-            '山楂六物消食膏': '',
-            '茯苓薏米祛湿膏': '',
-            '黄芪元气膏': '',
-            '疏肝逍遥方': '',
-            '玉容玫白膏': '',
-            '十全大补方': '',
-            '灵芝助眠方+养心补肾方': '',
-            '条装膏方（即食系列）': ''
-        }
+        douyinUrl: 'https://v.douyin.com/shop/FHCT'
     };
 
     const QUESTIONS = [
@@ -64,6 +54,17 @@
         { minScore: 24, maxScore: 24, label: '强迫型·健康卷王', subtitle: '养生焦虑，过度干预', desc: '每天打卡八杯水、十种保健品，越养越累，越累越养。', radar: [2, 3, 2, 1, 3], product: { name: '本草茶', desc: '放松神经，疏解压力，停止焦虑享受生活', url: 'https://v.douyin.com/Wfr5h-6Szis/' } }
     ];
 
+    const HIDDEN_RESULT = {
+        label: '隐藏人格·我想开了',
+        subtitle: '恭喜你发现了彩蛋',
+        desc: '经历了所有的养生苦难，你终于看透了一切。不再焦虑，不再内耗——反正活着就是赢。恭喜你获得"摆烂王者"称号。',
+        radar: [5, 5, 5, 5, 5],
+        product: { name: '方回春堂陈皮玩偶——我想开了', desc: '陈皮香囊，随身携带，随时随地放松心情', url: 'https://v.douyin.com/feuySWyYJU4/' },
+        isHidden: true
+    };
+
+    const HIDDEN_CHANCE = 0.9;
+
     const RADAR_LABELS = ['睡眠', '消化', '精力', '情绪', '湿气'];
     const STORAGE_KEY = 'fhcti_answers';
 
@@ -82,7 +83,6 @@
         bindEvents();
         initResultList();
         initShopLinks();
-        checkReturningUser();
     }
 
     function escapeHtml(str) {
@@ -92,14 +92,6 @@
             .replace(/"/g, '&quot;');
     }
 
-    function getProductBuyUrl(productName, fallbackUrl) {
-        const override = CONFIG.productBuyUrls && CONFIG.productBuyUrls[productName];
-        if (override != null && String(override).trim() !== '') {
-            return String(override).trim();
-        }
-        return fallbackUrl;
-    }
-
     function initResultList() {
         const resultList = document.getElementById('result-list');
         if (!resultList) {
@@ -107,18 +99,34 @@
             return;
         }
 
+        const hiddenPersonalityHtml = `
+            <div class="result-list-item hidden-personality-item">
+                <div class="result-list-personality">
+                    <div class="personality-img hidden-personality-img">
+                        <div class="mystery-icon">?</div>
+                        <div class="mystery-glow"></div>
+                    </div>
+                    <div class="personality-content">
+                        <div class="personality-label hidden-label">???</div>
+                        <div class="personality-name hidden-name">隐藏人格</div>
+                        <p class="personality-desc hidden-desc">世间真有此人格？或许只有有缘人才能解锁...</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
         const items = RESULT_TYPES.map(result => {
             const shortLabel = result.label.split('·')[0];
-            const buyUrl = getProductBuyUrl(result.product.name, result.product.url);
+            const buyUrl = result.product.url;
             const personalityImg = getResultImage(result.label);
             const productImg = CONFIG.productImages[result.product.name] ? `images/${CONFIG.productImages[result.product.name]}` : '';
 
             const personalityImgHtml = personalityImg
-                ? `<img src="${escapeHtml(personalityImg)}" alt="${escapeHtml(shortLabel)}" onerror="this.src='images/default_personality.png'">`
+                ? `<img src="${escapeHtml(personalityImg)}" alt="${escapeHtml(shortLabel)}" onload="this.classList.add('loaded')" onerror="this.src='images/default_personality.png'">`
                 : `<div class="personality-img-default">${escapeHtml(shortLabel)}</div>`;
 
             const productImgHtml = productImg
-                ? `<img src="${escapeHtml(productImg)}" alt="${escapeHtml(result.product.name)}" onerror="this.src='images/default_product.png'">`
+                ? `<img src="${escapeHtml(productImg)}" alt="${escapeHtml(result.product.name)}" onload="this.classList.add('loaded')" onerror="this.src='images/default_product.png'">`
                 : `<div class="product-img-default">🍯</div>`;
 
             return `
@@ -146,7 +154,7 @@
             `;
         }).join('');
 
-        resultList.innerHTML = items;
+        resultList.innerHTML = hiddenPersonalityHtml + items;
     }
 
     function initShopLinks() {
@@ -170,6 +178,11 @@
                 if (parsed.answers && Object.keys(parsed.answers).length > 0) {
                     state.answers = parsed.answers;
                     state.currentQuestion = Math.min(parsed.currentQuestion || 0, 5);
+                    state.totalScore = parsed.totalScore || 0;
+                    
+                    if (parsed.result && parsed.result.isHidden) {
+                        state.result = HIDDEN_RESULT;
+                    }
                 }
             }
         } catch (e) { console.warn('Failed to load state:', e); }
@@ -177,7 +190,16 @@
 
     function saveState() {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers: state.answers, currentQuestion: state.currentQuestion }));
+            const stateData = {
+                answers: state.answers,
+                currentQuestion: state.currentQuestion,
+                totalScore: state.totalScore,
+                result: state.result ? {
+                    label: state.result.label,
+                    isHidden: state.result.isHidden || false
+                } : null
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(stateData));
         } catch (e) { console.warn('Failed to save state:', e); }
     }
 
@@ -190,7 +212,9 @@
             const allAnswered = QUESTIONS.every(q => state.answers[q.id] !== undefined);
             if (allAnswered) {
                 state.totalScore = Object.values(state.answers).reduce((sum, score) => sum + score, 0);
-                state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+                if (!state.result || !state.result.isHidden) {
+                    state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+                }
                 renderResult();
                 showPage('result');
                 return;
@@ -237,12 +261,35 @@
 
     function startTest() {
         trackEvent('start_test');
-        if (Object.keys(state.answers).length === 0) {
-            state.answers = {};
-            state.currentQuestion = 0;
+        
+        // 水墨转场动画
+        const inkTransition = document.getElementById('ink-transition');
+        if (inkTransition) {
+            inkTransition.classList.remove('leaving');
+            inkTransition.classList.add('active');
+            
+            setTimeout(() => {
+                inkTransition.classList.add('leaving');
+                
+                setTimeout(() => {
+                    inkTransition.classList.remove('active', 'leaving');
+                    
+                    if (Object.keys(state.answers).length === 0) {
+                        state.answers = {};
+                        state.currentQuestion = 0;
+                    }
+                    showPage('question');
+                    renderQuestion();
+                }, 800);
+            }, 1500);
+        } else {
+            if (Object.keys(state.answers).length === 0) {
+                state.answers = {};
+                state.currentQuestion = 0;
+            }
+            showPage('question');
+            renderQuestion();
         }
-        showPage('question');
-        renderQuestion();
     }
 
     function renderQuestion() {
@@ -304,7 +351,13 @@
         trackEvent('test_complete', { total_score: state.totalScore, result_type: state.result?.label });
         showPage('loading');
         state.totalScore = Object.values(state.answers).reduce((sum, score) => sum + score, 0);
-        state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+        
+        if (Math.random() < HIDDEN_CHANCE) {
+            state.result = HIDDEN_RESULT;
+        } else {
+            state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+        }
+        
         setTimeout(() => {
             renderResult();
             showPage('result');
@@ -316,21 +369,28 @@
         const resultImage = getResultImage(result.label);
         const badgeEl = document.getElementById('result-badge');
 
-        if (resultImage) {
+        if (result.isHidden) {
+            if (resultImage) {
+                badgeEl.innerHTML = `<img src="${resultImage}" alt="${result.label}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='<div class=\\'hidden-badge\\'>?</div>'">`;
+            } else {
+                badgeEl.innerHTML = `<div class="hidden-badge">?</div>`;
+            }
+        } else if (resultImage) {
             badgeEl.innerHTML = `<img src="${resultImage}" alt="${result.label}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.textContent='${result.label.split('·')[0]}'">`;
         } else {
             badgeEl.textContent = result.label.split('·')[0];
         }
 
         document.getElementById('result-label').textContent = result.label;
-        document.getElementById('result-subtitle').textContent = result.subtitle;
+        document.getElementById('result-subtitle').textContent = result.isHidden ? '🎉 恭喜你发现了彩蛋！' : result.subtitle;
         document.getElementById('result-desc').textContent = result.desc;
 
         const productCard = document.getElementById('product-card');
         const productImg = getProductImage(result.product.name);
+        
         productCard.innerHTML = `
-            <div class="product-card-content">
-                ${productImg ? `<img src="${productImg}" alt="${result.product.name}" class="product-card-img" onerror="this.src='images/default_product.png'">` : '<div class="product-card-img-placeholder">🍯</div>'}
+            <div class="product-card-content ${result.isHidden ? 'hidden-result' : ''}">
+                ${productImg ? `<img src="${productImg}" alt="${result.product.name}" class="product-card-img" onload="this.classList.add('loaded')" onerror="this.src='images/default_product.png'">` : '<div class="product-card-img-placeholder">🍯</div>'}
                 <div class="product-card-info">
                     <div class="product-card-name">${result.product.name}</div>
                     <div class="product-card-desc">${result.product.desc}</div>
@@ -339,7 +399,7 @@
         `;
 
         const productLinkBtn = document.getElementById('product-link-btn');
-        const buyUrl = getProductBuyUrl(result.product.name, result.product.url);
+        const buyUrl = result.product.url;
         if (productLinkBtn) {
             if (buyUrl) {
                 productLinkBtn.href = buyUrl;
@@ -414,7 +474,7 @@
             <div class="poster-footer">
                 <div class="poster-brand">
                     <div>方回春堂</div>
-                    <div style="font-size:10px;color:#8B7355;">376年中华老字号</div>
+                    <div style="font-size:10px;color:#8B7355;">中华老字号</div>
                 </div>
                 <div class="poster-qr">${qrHtml}</div>
             </div>
