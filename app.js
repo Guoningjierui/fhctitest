@@ -33,12 +33,21 @@
     };
 
     const QUESTIONS = [
-        { id: 1, text: '你的典型入睡时间是？', options: [{ letter: 'A', text: '23:00前', score: 1 }, { letter: 'B', text: '23:00-1:00', score: 2 }, { letter: 'C', text: '1:00-3:00', score: 3 }, { letter: 'D', text: '随缘，经常通宵', score: 4 }] },
-        { id: 2, text: '工作日下午3点，你最常出现的状态是？', options: [{ letter: 'A', text: '困到灵魂出窍', score: 3 }, { letter: 'B', text: '肚子胀，感觉食物顶到喉咙', score: 2 }, { letter: 'C', text: '脸和脚肿得像注水', score: 4 }, { letter: 'D', text: '易燃易爆炸，想怼人', score: 1 }] },
-        { id: 3, text: '周末的典型饮食模式？', options: [{ letter: 'A', text: '外卖重油重盐', score: 2 }, { letter: 'B', text: '啤酒烧烤小火锅', score: 3 }, { letter: 'C', text: '轻断食/一天一顿', score: 4 }, { letter: 'D', text: '自己做饭，但经常吃剩菜', score: 1 }] },
-        { id: 4, text: '你对"养生"的真实态度？', options: [{ letter: 'A', text: '认真研究，保温杯里泡枸杞', score: 2 }, { letter: 'B', text: '一边作死一边自救，熬夜敷面膜', score: 4 }, { letter: 'C', text: '懒得动，能躺着绝不坐着', score: 1 }, { letter: 'D', text: '精神养生，相信意念可以战胜一切', score: 3 }] },
-        { id: 5, text: '最近一个月，你最容易出现的情绪？', options: [{ letter: 'A', text: '莫名想哭/低落', score: 1 }, { letter: 'B', text: '烦躁，一点就着', score: 3 }, { letter: 'C', text: '麻木，对什么都无感', score: 2 }, { letter: 'D', text: '焦虑，总担心健康出问题', score: 4 }] },
-        { id: 6, text: '照镜子时，你最先注意到的身体信号？', options: [{ letter: 'A', text: '黑眼圈/眼袋', score: 2 }, { letter: 'B', text: '下巴痘/色斑', score: 1 }, { letter: 'C', text: '头发变少/发际线后移', score: 3 }, { letter: 'D', text: '舌苔厚/有齿痕', score: 4 }] }
+        { id: 1, text: '你的典型入睡时间是？', options: [{ letter: 'A', text: '23:00前', score: 1 }, { letter: 'B', text: '23:00-1:00', score: 2 }, { letter: 'C', text: '1:00-3:00', score: 3 }, { letter: 'D', text: '随缘通宵', score: 4 }] },
+        { id: 2, text: '工作日下午3点，你最常出现的状态是？', options: [{ letter: 'A', text: '困到灵魂出窍', score: 3 }, { letter: 'B', text: '肚子胀、不消化', score: 2 }, { letter: 'C', text: '脸脚浮肿', score: 4 }, { letter: 'D', text: '易燃易爆炸想怼人', score: 1 }] },
+        { id: 3, text: '周末的典型饮食模式？', options: [{ letter: 'A', text: '外卖重油重盐', score: 2 }, { letter: 'B', text: '啤酒烧烤火锅', score: 3 }, { letter: 'C', text: '轻断食/一天一顿', score: 4 }, { letter: 'D', text: '常吃剩菜、饮食随意', score: 1 }] },
+        { id: 4, text: '你对"养生"的真实态度？', options: [{ letter: 'A', text: '认真泡枸杞', score: 2 }, { letter: 'B', text: '一边作死一边自救', score: 4 }, { letter: 'C', text: '懒得动、能躺不坐', score: 1 }, { letter: 'D', text: '精神养生、意念取胜', score: 3 }] },
+        { id: 5, text: '最近一个月，你最容易出现的情绪？', options: [{ letter: 'A', text: '莫名低落想哭', score: 1 }, { letter: 'B', text: '烦躁一点就着', score: 3 }, { letter: 'C', text: '麻木无感', score: 2 }, { letter: 'D', text: '总担心健康出问题', score: 4 }] },
+        { id: 6, text: '照镜子时，你最先注意到的身体信号？', options: [{ letter: 'A', text: '黑眼圈/眼袋', score: 2 }, { letter: 'B', text: '下巴痘/色斑', score: 1 }, { letter: 'C', text: '头发变少、发际线后移', score: 3 }, { letter: 'D', text: '舌苔厚、有齿痕', score: 4 }] },
+        { id: 7, text: '天气变冷时，你最明显的感受是？', options: [{ letter: 'A', text: '手脚冰凉捂不热', score: 1 }, { letter: 'B', text: '喉咙干痒总想喝水', score: 3 }, { letter: 'C', text: '浑身发沉懒得动', score: 4 }, { letter: 'D', text: '容易感冒免疫力差', score: 2 }] },
+        { id: 8, text: '吃完饭后，你最常出现的情况是？', options: [{ letter: 'A', text: '胃胀反酸、打嗝频繁', score: 4 }, { letter: 'B', text: '犯困乏力、只想躺着', score: 3 }, { letter: 'C', text: '喉咙黏腻、有痰感', score: 2 }, { letter: 'D', text: '消化很快，没什么负担', score: 1 }] },
+        { id: 9, text: '夏天待在空调房里，你最容易出现？', options: [{ letter: 'A', text: '关节酸痛怕冷', score: 1 }, { letter: 'B', text: '皮肤干、嘴唇起皮', score: 3 }, { letter: 'C', text: '头昏犯困提不起劲', score: 2 }, { letter: 'D', text: '鼻子敏感打喷嚏', score: 4 }] },
+        { id: 10, text: '你的口味偏好更偏向？', options: [{ letter: 'A', text: '爱吃甜腻奶茶蛋糕', score: 2 }, { letter: 'B', text: '重辣重咸无辣不欢', score: 3 }, { letter: 'C', text: '生冷冰饮不离手', score: 4 }, { letter: 'D', text: '清淡不挑食', score: 1 }] },
+        { id: 11, text: '久坐之后，你最明显的不适是？', options: [{ letter: 'A', text: '腰酸背痛僵硬', score: 3 }, { letter: 'B', text: '小腹胀气不消化', score: 2 }, { letter: 'C', text: '双腿发胀浮肿', score: 4 }, { letter: 'D', text: '头晕眼花注意力差', score: 1 }] },
+        { id: 12, text: '经期/换季时，你的皮肤状态？', options: [{ letter: 'A', text: '疯狂爆痘出油', score: 3 }, { letter: 'B', text: '干燥敏感起皮', score: 1 }, { letter: 'C', text: '暗沉发黄气色差', score: 4 }, { letter: 'D', text: '基本稳定', score: 2 }] },
+        { id: 13, text: '运动或劳累后，你的反应是？', options: [{ letter: 'A', text: '气喘很久缓不过来', score: 2 }, { letter: 'B', text: '大汗淋漓易虚脱', score: 1 }, { letter: 'C', text: '肌肉酸痛懒怠动', score: 4 }, { letter: 'D', text: '反而更精神亢奋', score: 3 }] },
+        { id: 14, text: '你平时喝水的习惯是？', options: [{ letter: 'A', text: '经常忘记喝水', score: 2 }, { letter: 'B', text: '只喝冰水才舒服', score: 4 }, { letter: 'C', text: '热茶温水少量多次', score: 1 }, { letter: 'D', text: '渴极了才猛灌一通', score: 3 }] },
+        { id: 15, text: '别人对你最常见的评价是？', options: [{ letter: 'A', text: '温和不爱计较', score: 4 }, { letter: 'B', text: '性子急易上火', score: 3 }, { letter: 'C', text: '想得多容易内耗', score: 2 }, { letter: 'D', text: '佛系躺平无所谓', score: 1 }] }
     ];
 
     const RESULT_TYPES = [
@@ -63,7 +72,7 @@
         isHidden: true
     };
 
-    const HIDDEN_CHANCE = 0.9;
+    const HIDDEN_CHANCE = 0.1;
 
     const RADAR_LABELS = ['睡眠', '消化', '精力', '情绪', '湿气'];
     const STORAGE_KEY = 'fhcti_answers';
@@ -177,11 +186,22 @@
                 const parsed = JSON.parse(saved);
                 if (parsed.answers && Object.keys(parsed.answers).length > 0) {
                     state.answers = parsed.answers;
-                    state.currentQuestion = Math.min(parsed.currentQuestion || 0, 5);
+                    state.currentQuestion = Math.min(parsed.currentQuestion || 0, 14);
                     state.totalScore = parsed.totalScore || 0;
                     
                     if (parsed.result && parsed.result.isHidden) {
                         state.result = HIDDEN_RESULT;
+                    } else if (Object.keys(parsed.answers).length === QUESTIONS.length) {
+                        // 使用相同的哈希算法计算结果
+                        const answersStr = Object.entries(state.answers).sort((a, b) => a[0] - b[0]).map(([id, score]) => `${id}:${score}`).join(',');
+                        let hash = 0;
+                        for (let i = 0; i < answersStr.length; i++) {
+                            const char = answersStr.charCodeAt(i);
+                            hash = ((hash << 5) - hash) + char;
+                            hash = hash & hash; // 转换为32位整数
+                        }
+                        const index = Math.abs(hash) % RESULT_TYPES.length;
+                        state.result = RESULT_TYPES[index];
                     }
                 }
             }
@@ -213,7 +233,16 @@
             if (allAnswered) {
                 state.totalScore = Object.values(state.answers).reduce((sum, score) => sum + score, 0);
                 if (!state.result || !state.result.isHidden) {
-                    state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+                    // 使用相同的哈希算法计算结果
+                    const answersStr = Object.entries(state.answers).sort((a, b) => a[0] - b[0]).map(([id, score]) => `${id}:${score}`).join(',');
+                    let hash = 0;
+                    for (let i = 0; i < answersStr.length; i++) {
+                        const char = answersStr.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash; // 转换为32位整数
+                    }
+                    const index = Math.abs(hash) % RESULT_TYPES.length;
+                    state.result = RESULT_TYPES[index];
                 }
                 renderResult();
                 showPage('result');
@@ -350,18 +379,29 @@
     function submitTest() {
         trackEvent('test_complete', { total_score: state.totalScore, result_type: state.result?.label });
         showPage('loading');
-        state.totalScore = Object.values(state.answers).reduce((sum, score) => sum + score, 0);
         
+        // 计算答题结果的哈希值，确保相同答题结果得到相同人格
+        const answersStr = Object.entries(state.answers).sort((a, b) => a[0] - b[0]).map(([id, score]) => `${id}:${score}`).join(',');
+        let hash = 0;
+        for (let i = 0; i < answersStr.length; i++) {
+            const char = answersStr.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // 转换为32位整数
+        }
+        
+        // 生成隐藏人格的概率
         if (Math.random() < HIDDEN_CHANCE) {
             state.result = HIDDEN_RESULT;
         } else {
-            state.result = RESULT_TYPES.find(r => state.totalScore >= r.minScore && state.totalScore <= r.maxScore);
+            // 基于哈希值均匀分配人格类型
+            const index = Math.abs(hash) % RESULT_TYPES.length;
+            state.result = RESULT_TYPES[index];
         }
         
         setTimeout(() => {
             renderResult();
             showPage('result');
-        }, 2000);
+        }, 500);
     }
 
     function renderResult() {
