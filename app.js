@@ -1,17 +1,17 @@
 (function() {
     const CONFIG = {
         resultImages: {
-            '时差型': 'result_1.png',
-            '积食型': 'result_2.png',
-            '水肿型': 'result_3.png',
-            '摆烂型': 'result_4.png',
-            '易燃型': 'result_5.png',
-            '精致型': 'result_6.png',
-            '朋克型': 'result_7.png',
-            '修仙型': 'result_8.png',
-            '开摆型': 'result_9.png',
-            '强迫型': 'result_10.png',
-            '隐藏人格': 'result_hidden.png'
+            '时差型': '时差型.png',
+            '积食型': '积食型.png',
+            '水肿型': '水肿型.png',
+            '摆烂型': '摆烂型.png',
+            '易燃型': '易燃型.png',
+            '精致型': '精致型.png',
+            '朋克型': '朋克型.png',
+            '修仙型': '修仙型.png',
+            '开摆型': '开摆型.png',
+            '强迫型': '强迫型.png',
+            '隐藏人格': '隐藏人格.png'
         },
         productImages: {
             '酸枣仁睡前膏': 'product_suanzao.png',
