@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3D2A22">
+    <meta name="description" content="方回春堂养生人格指数测试 - 测测你的养生人格，领取专属「回春处方」">
+    <title>FHCTI - 方回春堂养生人格指数测试</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preload" href="{{ asset_url('styles.css') }}" as="style">
+    <link rel="stylesheet" href="{{ asset_url('styles.css') }}">
+</head>
+<body>
+    <div id="app">
+        <div id="page-home" class="page active">
+            <div class="home-wrapper">
+                <div class="ink-wash"></div>
+                <div class="herb-decoration herb-left cloud-decoration-1">☁</div>
+                <div class="herb-decoration herb-right cloud-decoration-2">☁</div>
+                <div class="cloud-decoration cloud-decoration-3">☁</div>
+                <div class="cloud-decoration cloud-decoration-4">☁</div>
+                <div class="home-container">
+                    <div class="logo-area">
+                        <div class="fhcti-seal">FHCTI</div>
+                        <div class="brand-name">方回春堂</div>
+                        <div class="brand-year">始于1649</div>
+                    </div>
+                    <div class="title-section">
+                        <div class="main-title">养生人格指数测试</div>
+                        <div class="subtitle-row">
+                            <span class="subtitle">你的身体到底在过什么"朝代"？</span>
+                        </div>
+                        <div class="tagline-row">
+                            <span class="tagline">3分钟解锁身体的真实朝代</span>
+                        </div>
+                    </div>
+                    <div class="start-btn" id="start-btn">开始穿越</div>
+                    <div class="footer-hint">点击开始，即表示您同意参与本次趣味测试</div>
+
+                    <a href="http://hzfhct.cn/gnU5m" class="consult-link" target="_blank">健康咨询调理</a>
+                    <div class="result-list-section">
+                        <div class="result-list-title">养生人格</div>
+                        <div class="result-list" id="result-list"></div>
+                    </div>
+                    <div class="bottom-decoration">
+                        <div class="brand-slogan">方回春堂 · 名医好药</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-question" class="page">
+            <div class="question-header">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="question-counter"><span id="current-q">1</span>/15</div>
+            </div>
+            <div class="question-content">
+                <div class="question-text" id="question-text"></div>
+                <div class="options-list" id="options-list"></div>
+            </div>
+            <div class="question-footer">
+                <div class="nav-btn prev-btn" id="prev-btn" style="opacity:0">上一题</div>
+                <div class="nav-btn next-btn" id="next-btn">下一题</div>
+            </div>
+        </div>
+
+        <div id="page-loading" class="page">
+            <div class="loading-wrapper">
+                <div class="loading-ink"></div>
+                <div class="loading-content">
+                    <div class="loading-seal-container">
+                        <div class="loading-seal">春</div>
+                        <div class="loading-seal-ring"></div>
+                    </div>
+                    <div class="loading-title">正在解读</div>
+                    <div class="loading-subtitle">你的身体密码</div>
+                    <div class="loading-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="loading-herbs">
+                        <div class="herb-icon">🌿</div>
+                        <div class="herb-icon">🍃</div>
+                        <div class="herb-icon">🌱</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-result" class="page">
+            <div class="result-container">
+                <div class="result-badge" id="result-badge"></div>
+                <div class="result-label" id="result-label"></div>
+                <div class="result-subtitle" id="result-subtitle"></div>
+                <div class="result-desc" id="result-desc"></div>
+                <div class="wellness-bars" id="wellness-bars"></div>
+                <div class="product-section">
+                    <div class="product-title">门诊挂号咨询</div>
+                    <div class="product-card" id="product-card">
+                        <div class="consultation-content">
+                            <div class="consultation-icon">👨‍⚕️</div>
+                            <div class="consultation-text">
+                                <h3 class="consultation-title">一键预约，一对一咨询</h3>
+                                <p class="consultation-desc">专业医生为您提供个性化健康建议，针对性解决您的健康问题</p>
+                            </div>
+                        </div>
+                        <a href="http://hzfhct.cn/gnU5m" class="consultation-btn" target="_blank">立即预约</a>
+                    </div>
+                </div>
+
+                <div class="disclaimer">* 本测试仅为趣味互动，不构成医疗建议。如有身体不适，请及时就医或咨询方回春堂执业医师。</div>
+                <div class="action-btns">
+                    <div class="action-btn primary" id="generate-poster">生成我的养生人格海报</div>
+                    <div class="action-btn secondary" id="retest">重新测试</div>
+                </div>
+                <div class="expert-note">以上建议仅供参考，个性化调理请咨询方回春堂名医。</div>
+            </div>
+        </div>
+
+        <div id="page-poster" class="page">
+            <div class="poster-container" id="poster-container">
+                <div class="poster-content" id="poster-content"></div>
+            </div>
+            <div class="poster-actions">
+                <button type="button" class="action-btn primary" id="save-poster">保存到相册</button>
+                <button type="button" class="action-btn tertiary" id="back-result">返回结果</button>
+            </div>
+        </div>
+
+        <div id="ink-transition" class="ink-transition">
+            <div class="ink-layer ink-layer-1"></div>
+            <div class="ink-layer ink-layer-2"></div>
+            <div class="ink-layer ink-layer-3"></div>
+            <div class="ink-text">穿越中...</div>
+        </div>
+    </div>
+
+    <script defer src="{{ asset_url('app.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</body>
+</html>
