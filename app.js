@@ -71,7 +71,7 @@
         isHidden: true
     };
 
-    const HIDDEN_CHANCE = 0.9;
+    const HIDDEN_CHANCE = 0.1;
 
     const RADAR_LABELS = ['睡眠', '消化', '精力', '情绪', '湿气'];
     const STORAGE_KEY = 'fhcti_answers';
@@ -123,7 +123,9 @@
         `;
 
         const items = RESULT_TYPES.map(result => {
-            const shortLabel = result.label.split('・')[0];
+            const labelParts = result.label.split('・');
+            const shortLabel = labelParts[0];
+            const subtitle = labelParts[1] || '';
             const personalityImg = getResultImage(result.label);
 
             const personalityImgHtml = personalityImg
@@ -136,7 +138,7 @@
                         <div class="personality-img">${personalityImgHtml}</div>
                         <div class="personality-content">
                             <div class="personality-label">${escapeHtml(shortLabel)}</div>
-                            <div class="personality-name">${escapeHtml(shortLabel)}</div>
+                            <div class="personality-subtitle">${escapeHtml(subtitle)}：${escapeHtml(result.subtitle)}</div>
                             <p class="personality-desc">${escapeHtml(result.desc)}</p>
                         </div>
                     </div>
